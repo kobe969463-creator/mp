@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <link rel="stylesheet" href="./assets/uni.2541f522.css">
+
+    <meta charset="UTF-8" />
+    <script>
+      // 电脑上直接打开试玩版时，换成「手机框」页面（static/frame.html 用 iframe 套回本页）；手机上、被嵌在展示页里时照常显示
+      (function () {
+        var wide = window.innerWidth > 640 && !/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
+        var inFrame = window.top !== window.self || /[?&]f=1/.test(location.search)
+        if (wide && !inFrame) location.replace('static/frame.html' + location.hash)
+      })()
+      var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||
+        CSS.supports('top: constant(a)'))
+      document.write(
+        '<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +
+        (coverSupport ? ', viewport-fit=cover' : '') + '" />')
+    </script>
+    <title>陈记粉面 · 点餐演示</title>
+    <!--preload-links-->
+    <!--app-context-->
+    <script type="module" crossorigin src="./assets/index-Bti2xEsK.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-C8QnyXd2.css">
+  </head>
+  <body>
+    <div id="app"><!--app-html--></div>
+  </body>
+</html>

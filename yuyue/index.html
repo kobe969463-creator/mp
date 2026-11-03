@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>预约 + 派单小程序 · 蓝工到家 · Rick 的小程序案例</title>
+<meta name="description" content="蓝工到家：预约 + 派单小程序。顾客选服务、约时间；后台把单派给师傅，师傅在手机上接单、打卡、拍完工照。">
+<meta property="og:title" content="预约 + 派单小程序案例 · 蓝工到家">
+<meta property="og:description" content="顾客选服务、约时间；后台把单派给师傅，师傅在手机上接单、打卡、拍完工照。">
+<meta property="og:image" content="poster.jpg">
+<meta name="theme-color" content="#06082f">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="rec.mp4" as="video" type="video/mp4">
+<style>
+@font-face{font-family:'General Sans';font-weight:500;font-display:swap;src:url(../fonts/general-sans-500.woff2) format('woff2')}
+@font-face{font-family:'General Sans';font-weight:600;font-display:swap;src:url(../fonts/general-sans-600.woff2) format('woff2')}
+:root{
+  --paper:#fff;--ink:#1c1d20;--muted:#5f6368;--line:rgba(28,29,32,.12);
+  --navy:#06082f;--navy-2:#11154a;--on-navy:#f4f4f7;--on-navy-muted:#b4b6cc;
+  --font:'General Sans',-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Noto Sans SC','Microsoft YaHei',sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);--gut:20px;color-scheme:light}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--font);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,p,ul,figure{margin:0}ul{padding:0;list-style:none}
+img,video{display:block;max-width:100%}
+:focus-visible{outline:2px solid #3f5cf3;outline-offset:3px;border-radius:6px}
+
+.hero{background:var(--navy);color:var(--on-navy);padding:0 var(--gut) 28px}
+.top{display:flex;align-items:center;justify-content:space-between;height:52px;font-size:14px}
+.top__brand{font-weight:600;letter-spacing:-.01em}
+.top__brand span{font-weight:500;color:var(--on-navy-muted);margin-left:6px}
+.top__nav{display:flex;gap:4px}
+.top__nav a{padding:6px 10px;border-radius:999px;color:var(--on-navy-muted)}
+.top__nav a[aria-current]{background:rgba(255,255,255,.12);color:var(--on-navy)}
+.hero__grid{display:grid;gap:18px}
+.hero h1{font-size:30px;line-height:1.15;font-weight:600;letter-spacing:-.02em;padding-top:6px}
+.hero h1 small{display:block;font-size:16px;font-weight:500;letter-spacing:0;color:var(--on-navy-muted);margin-top:6px}
+.hero__side{display:none}
+.phone{--h:clamp(380px,calc(100svh - 262px),620px);height:var(--h);width:calc((var(--h) - 16px) * 375 / 812 + 16px);
+  margin:0 auto;padding:8px;border-radius:calc(var(--h) * .068);background:#0b0b0d;
+  box-shadow:0 0 0 1.5px #2b2c33,0 28px 60px -24px rgba(0,0,0,.75);position:relative}
+.screen{height:100%;border-radius:calc(var(--h) * .058);overflow:hidden;background:rgb(30,79,158);position:relative;
+  display:flex;flex-direction:column;container-type:inline-size}
+.sbar{flex:0 0 auto;aspect-ratio:375/44;display:flex;align-items:center;justify-content:space-between;
+  padding:0 7% 0 9%;color:#fff;font:600 14px/1 -apple-system,'SF Pro Text','PingFang SC',sans-serif;font-size:3.9cqw;position:relative}
+.sbar::after{content:'';position:absolute;left:50%;top:22%;width:30%;height:58%;margin-left:-15%;border-radius:999px;background:#000}
+.sbar svg{height:3.3cqw;width:auto;min-height:9px}
+.sbar__icons{display:flex;gap:1.4cqw;align-items:center}
+.screen video{flex:1 1 auto;width:100%;min-height:0;object-fit:cover;object-position:top;background:rgb(30,79,158)}
+.play{position:absolute;inset:auto 0 18% 0;margin:auto;width:max-content;padding:10px 18px;border:0;border-radius:999px;
+  background:rgba(6,8,47,.82);color:#fff;font:500 15px/1 var(--font);display:flex;gap:8px;align-items:center;cursor:pointer}
+.play[hidden]{display:none}
+.hero__note{text-align:center;font-size:13px;color:var(--on-navy-muted);margin-top:12px}
+.cta{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;gap:10px;padding:10px var(--gut) calc(10px + env(safe-area-inset-bottom));
+  background:var(--paper);box-shadow:0 -1px 0 var(--line),0 -8px 20px -14px rgba(0,0,0,.28)}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:48px;border-radius:999px;font-size:16px;font-weight:500;
+  border:1.5px solid var(--navy);color:var(--navy);transition:background-color .2s,transform .2s var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn--main{background:var(--navy);color:#fff;flex:1.25}
+.btn svg{width:16px;height:16px}
+main{padding:36px var(--gut) 120px;max-width:1080px;margin:0 auto}
+.lede{font-size:20px;line-height:1.55;font-weight:500;letter-spacing:-.01em;max-width:24em;text-wrap:pretty}
+.fits{margin-top:14px;color:var(--muted);font-size:15px}
+.fits b{color:var(--ink);font-weight:500}
+section{margin-top:56px}
+h2{font-size:22px;line-height:1.3;font-weight:600;letter-spacing:-.01em;margin-bottom:16px}
+.shots__head{display:flex;align-items:baseline;justify-content:space-between}
+.shots__hint{font-size:14px;color:var(--muted)}
+.strip{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--gut) * -1);padding:4px var(--gut) 14px;
+  scroll-padding:0 var(--gut);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.strip::-webkit-scrollbar{display:none}
+.strip figure{flex:0 0 auto;width:min(62vw,250px);scroll-snap-align:start}
+.strip img{width:100%;aspect-ratio:375/812;object-fit:cover;object-position:top;border-radius:18px;background:#f1f1f3;
+  box-shadow:0 0 0 1px var(--line),0 14px 28px -18px rgba(0,0,0,.3)}
+.strip figcaption{font-size:14px;line-height:1.5;color:var(--muted);margin-top:10px;padding-right:8px}
+.strip figcaption b{display:block;color:var(--ink);font-weight:500;font-size:15px}
+.sides{display:grid;gap:40px}
+.feat li{display:grid;gap:2px;padding:13px 0;border-top:1px solid var(--line)}
+.feat li:last-child{border-bottom:1px solid var(--line)}
+.feat b{font-weight:500;font-size:16px}
+.feat span{color:var(--muted);font-size:15px}
+.side__link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:15px;font-weight:500;color:var(--navy);
+  border-bottom:1.5px solid currentColor;padding-bottom:1px}
+.side__link svg{width:16px;height:16px;flex:none}
+.note p{color:var(--muted);font-size:15px;max-width:36em}
+.note p+p{margin-top:10px}
+.others{display:grid;gap:12px}
+.other{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:12px;border-radius:16px;background:#f4f4f6}
+.other img{width:64px;height:84px;object-fit:cover;object-position:top;border-radius:10px}
+.other b{display:block;font-weight:500;font-size:16px;line-height:1.4}
+.other__fits{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.other svg{width:18px;height:18px;color:var(--muted)}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between}
+footer a{color:var(--ink);font-weight:500}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+@media (min-width:900px){
+  :root{--gut:clamp(24px,6vw,96px)}
+  .hero{padding-bottom:64px}
+  .hero__grid{grid-template-columns:1fr auto;align-items:center;gap:64px;max-width:1080px;margin:0 auto;padding-top:24px}
+  .top{max-width:1080px;margin:0 auto}
+  .hero h1{font-size:52px}
+  .hero h1 small{font-size:20px;margin-top:10px}
+  .hero__side{display:block}
+  .hero__side .lede{color:var(--on-navy);margin-top:26px}
+  .hero__side .fits{color:var(--on-navy-muted)}.hero__side .fits b{color:var(--on-navy)}
+  .phone{--h:min(680px,calc(100vh - 150px))}
+  .cta{position:static;background:none;box-shadow:none;padding:0;margin-top:32px;max-width:440px}
+  .hero .btn{border-color:var(--on-navy);color:var(--on-navy)}
+  .hero .btn--main{background:var(--on-navy);color:var(--navy)}
+  .intro,.intro-cta{display:none}
+  main{padding-bottom:80px}
+  .sides{grid-template-columns:1fr 1fr;gap:56px}
+  .others{grid-template-columns:1fr 1fr}
+  .strip{margin:0;padding:4px 0 14px}
+}
+</style>
+</head>
+<body>
+<!--
+THESIS: 客户点开第一眼就是小程序在手机里自己动起来，不是一页卖点介绍；不做「大标题 + 三张功能卡」那种模板落地页。
+OWN-WORLD: 沿用 Rick 作品集的藏青 #06082f + 白纸、General Sans + 苹方、细线列表和胶囊按钮；颜色只留给手机里的小程序。
+STORY: 看懂这是个什么小程序 → 看它跑一单 → 自己点一下试用户端 / 商家后台 → 翻截图和功能清单确认后台管得了。
+FIRST VIEWPORT: 藏青顶栏（案例切换）、店名 + 类型，下面一台占满剩余高度的手机在循环播录屏；吸底两个按钮「自己点一下试试」「看商家后台」。
+FORM: 在已有作品集视觉里延伸的手机样机展示页（不另起视觉世界，没跑方向抽签）。
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+<header class="hero">
+  <nav class="top" aria-label="小程序案例"><a class="top__brand" href="../">Rick<span>的小程序案例</span></a><span class="top__nav"><a href="../diancan/">点餐</a><a href="../shangcheng/">商城</a><a href="../yuyue/" aria-current="page">预约</a></span></nav>
+  <div class="hero__grid">
+    <div>
+      <h1>蓝工到家<small>预约 + 派单小程序</small></h1>
+      <div class="hero__side"><p class="lede">顾客选服务、约时间；后台把单派给师傅，师傅在手机上接单、打卡、拍完工照。</p><p class="fits"><b>适合</b>　家电清洗维修、家政保洁、汽修保养、美甲美发、蛋糕鲜花预定</p><div class="cta"><a class="btn btn--main" href="app/" data-try>自己点一下试试</a><a class="btn" href="app/#/pages/admin/index">看商家后台</a></div></div>
+    </div>
+    <div class="hero__phone">
+    <figure class="phone" aria-label="蓝工到家小程序录屏">
+      <div class="screen">
+        <div class="sbar" aria-hidden="true"><span>9:41</span><span class="sbar__icons" aria-hidden="true"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx=".8" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx=".8" fill="currentColor"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0L8 11.5Zm-4.3-4.4L2 5.3a8.5 8.5 0 0 1 12 0l-1.7 1.8a6.1 6.1 0 0 0-8.6 0Z" fill="currentColor"/></svg><svg viewBox="0 0 27 12"><rect x=".5" y=".5" width="22" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="19" height="8" rx="2" fill="currentColor"/><path d="M24.5 4v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" fill="currentColor" opacity=".45"/></svg></span></div>
+        <video id="rec" src="rec.mp4" poster="poster.jpg" autoplay muted loop playsinline webkit-playsinline x5-playsinline preload="auto" aria-label="录屏：顾客预约，后台派单，师傅完工"></video>
+        <button class="play" id="play" type="button" hidden><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path d="M6 4.2v11.6a.6.6 0 0 0 .9.5l9.3-5.8a.6.6 0 0 0 0-1L6.9 3.7a.6.6 0 0 0-.9.5Z" fill="currentColor"/></svg>播放录屏</button>
+      </div>
+    </figure>
+    <p class="hero__note">录屏 31 秒 · 顾客预约，后台派单，师傅完工</p>
+    </div>
+  </div>
+</header>
+<div class="intro-cta"><div class="cta"><a class="btn btn--main" href="app/" data-try>自己点一下试试</a><a class="btn" href="app/#/pages/admin/index">看商家后台</a></div></div>
+<main>
+  <div class="intro"><p class="lede">顾客选服务、约时间；后台把单派给师傅，师傅在手机上接单、打卡、拍完工照。</p><p class="fits"><b>适合</b>　家电清洗维修、家政保洁、汽修保养、美甲美发、蛋糕鲜花预定</p></div>
+  <section aria-labelledby="h-shots">
+    <div class="shots__head"><h2 id="h-shots">几个关键页面</h2><span class="shots__hint">左右滑 · 8 张</span></div>
+    <div class="strip"><figure><img src="shots/01.webp" alt="首页" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>首页</b>服务宫格，今天还能约哪些时段写在最上面</figcaption></figure><figure><img src="shots/02.webp" alt="服务详情" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>服务详情</b>包括什么、不包括什么，先说清楚</figcaption></figure><figure><img src="shots/03.webp" alt="选日期和时段" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>选日期和时段</b>约满的、已经过了的时段点不了</figcaption></figure><figure><img src="shots/04.webp" alt="预约单是一张工单" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>预约单是一张工单</b>工单号、上门时间、进度一条线</figcaption></figure><figure><img src="shots/05.webp" alt="管理后台" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>管理后台</b>待派单最显眼，师傅这会儿在干嘛也看得到</figcaption></figure><figure><img src="shots/06.webp" alt="派单" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>派单</b>撞时段、休息的师傅自动置灰，写明原因</figcaption></figure><figure><img src="shots/07.webp" alt="师傅端" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>师傅端</b>今天的单按时间排，带距离</figcaption></figure><figure><img src="shots/08.webp" alt="完工盖章" width="250" height="541" loading="lazy" decoding="async"><figcaption><b>完工盖章</b>完工照片、师傅签名，顾客能评价</figcaption></figure></div>
+  </section>
+  <section class="sides">
+    <div><h2>顾客这边</h2><ul class="feat"><li><b>选日期和时间段</b><span>约满的、已经过了的时段选不了</span></li><li><b>问题描述带快捷标签</b><span>「有异味」「不制冷」点一下就填好</span></li><li><b>预约单像一张工单</b><span>工单号、师傅、进度一条线走下来</span></li><li><b>改约、取消</b><span>师傅出发前都能改</span></li><li><b>完工照片和评价</b><span>师傅拍的完工照顾客这边能看到</span></li></ul><a class="side__link" href="app/">试用户端 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    <div><h2>老板这边</h2><ul class="feat"><li><b>待派单最显眼</b><span>点派单，列出师傅今天排了几单，时间冲突的选不了</span></li><li><b>师傅有自己的端</b><span>接单 → 出发 → 开工 → 拍照完工</span></li><li><b>时段和上限</b><span>某个时段约满了可以手动关掉</span></li><li><b>服务和价格</b><span>上下架、改价随手改</span></li><li><b>今天的单和收入</b><span>约了多少、做完多少、收了多少</span></li></ul><a class="side__link" href="app/#/pages/admin/index">进商家后台 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  </section>
+  <section class="note">
+    <h2>按你的店来改</h2>
+    <p>服务项目、时段、上门范围、派单规则都按你的店来定。要按距离自动派单、师傅提成结算，也能做，聊需求的时候说一声。</p>
+    <p>这个案例是用 uni-app 写的真小程序代码，网页试玩版和微信小程序是同一套代码编出来的。正式上线要用你自己的小程序账号提交微信审核。店名、商品和数据都是虚构的，付款是模拟的，随便点。</p>
+  </section>
+  <section>
+    <h2>另外两个案例</h2>
+    <div class="others"><a class="other" href="../diancan/"><img src="../diancan/poster.jpg" alt="" width="64" height="84"><span><b>陈记粉面</b><span class="other__fits">点餐 + 会员储值小程序</span></span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="other" href="../shangcheng/"><img src="../shangcheng/poster.jpg" alt="" width="64" height="84"><span><b>山野果仓</b><span class="other__fits">商城 + 营销小程序</span></span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  </section>
+  <footer><span>Rick · 独立开发者</span><a href="https://kobe969463-creator.github.io/">看网站、App 等其他作品 →</a></footer>
+</main>
+<script>
+(function(){
+  var v=document.getElementById('rec'),b=document.getElementById('play');
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(){b.hidden=false}
+  function go(){var p=v.play();if(p&&p.catch)p.catch(show)}
+  v.addEventListener('playing',function(){b.hidden=true});
+  b.addEventListener('click',function(){b.hidden=true;v.play()});
+  if(reduce){v.removeAttribute('autoplay');show();return}
+  go();
+  document.addEventListener('WeixinJSBridgeReady',go,false);
+  document.addEventListener('touchstart',function t(){if(v.paused)go();document.removeEventListener('touchstart',t)},{passive:true});
+  setTimeout(function(){if(v.paused)show()},2500);
+})();
+</script>
+</body>
+</html>
