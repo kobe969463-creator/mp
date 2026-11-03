@@ -5,9 +5,9 @@
 
     <meta charset="UTF-8" />
     <script>
-      // 电脑上直接打开试玩版时，换成「手机框」页面（static/frame.html 用 iframe 套回本页）；手机上、被嵌在展示页里时照常显示
+      // 大屏电脑上直接打开试玩版时，换成「手机框」页面（static/frame.html 用 iframe 套回本页）；手机上、被嵌在展示页里时照常显示
       (function () {
-        var wide = window.innerWidth > 640 && !/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
+        var wide = window.innerWidth > 900 && window.innerHeight > 700 && !/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
         var inFrame = window.top !== window.self || /[?&]f=1/.test(location.search)
         if (wide && !inFrame) location.replace('static/frame.html' + location.hash)
       })()
@@ -18,10 +18,19 @@
         (coverSupport ? ', viewport-fit=cover' : '') + '" />')
     </script>
     <title>山野果仓</title>
+    <style>
+      /* 比手机宽的屏幕（平板、横屏、电脑窗口）：整个小程序限在 480 宽、居中，两边留底色；
+         uni 自己的导航栏、tabBar 和页面里的固定栏都按 --window-left / --window-right 收进来 */
+      @media (min-width: 481px) {
+        :root { --window-left: calc(50% - 240px) !important; --window-right: calc(50% - 240px) !important; }
+        html { background: #dcdad5; }
+        body { max-width: 480px; margin: 0 auto !important; min-height: 100vh; box-shadow: 0 0 0 1px rgba(0, 0, 0, .06), 0 12px 40px rgba(0, 0, 0, .12); }
+      }
+    </style>
     <!--preload-links-->
     <!--app-context-->
-    <script type="module" crossorigin src="./assets/index-REf09il2.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BrUz_-am.css">
+    <script type="module" crossorigin src="./assets/index--SNRrnJA.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-01cTL9VP.css">
   </head>
   <body>
     <div id="app"><!--app-html--></div>

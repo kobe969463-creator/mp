@@ -22,6 +22,12 @@ a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 h1,h2,h3,p,ul,figure{margin:0}ul{padding:0;list-style:none}
 img,video{display:block;max-width:100%}
 :focus-visible{outline:2px solid #3f5cf3;outline-offset:3px;border-radius:6px}
+.contact{margin-top:56px}
+.contact p.contact__lead{color:var(--muted);font-size:15px;margin-bottom:16px}
+.wx{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:420px;padding:6px 6px 6px 20px;border:1.5px solid var(--navy);border-radius:999px;font-size:17px;font-weight:500}
+.wx [data-copy-text]{-webkit-user-select:text;user-select:text}
+.wx__btn{flex:none;min-width:5em;height:44px;padding:0 18px;border:0;border-radius:999px;background:var(--navy);color:#fff;font:500 15px/1 var(--font);cursor:pointer;transition:background-color .25s}
+.wx__btn.is-copied{background:#1f8a4c}
 
 .hero{background:var(--navy);color:var(--on-navy);padding:0 var(--gut) 36px}
 .top{display:flex;align-items:center;height:52px;font-size:14px;font-weight:600;max-width:1080px;margin:0 auto}
@@ -48,6 +54,21 @@ footer a{color:var(--ink);font-weight:500}
 <header class="hero"><nav class="top"><a href="https://kobe969463-creator.github.io/">Rick<span>的作品</span></a></nav>
 <div><h1>小程序案例</h1><p>三个最常被问到的类型，每个都带商家后台。点进去先看录屏，再自己点一下，数据是假的随便点。</p></div></header>
 <main><div class="list"><a class="item" href="diancan/"><img src="diancan/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>陈记粉面</b><em>点餐 + 会员储值小程序</em><p>顾客扫桌上的码点单、充值当会员；老板在手机上接单、出餐、改菜单。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a><a class="item" href="shangcheng/"><img src="shangcheng/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>山野果仓</b><em>商城 + 营销小程序</em><p>商品、购物车、下单付款、发货物流都有，再加上领券、秒杀、抽奖、签到积分这些拉回头客的玩法。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a><a class="item" href="yuyue/"><img src="yuyue/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>蓝工到家</b><em>预约 + 派单小程序</em><p>顾客选服务、约时间；后台把单派给师傅，师傅在手机上接单、打卡、拍完工照。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a></div>
+<section class="contact" aria-labelledby="h-contact"><h2 id="h-contact">想做一个类似的</h2><p class="contact__lead">加微信，说说你的店和想要的功能，按你的生意来改。</p><p class="wx"><span data-copy-text>微信：<span translate="no">business_rick</span></span><button class="wx__btn" type="button" data-copy="business_rick" aria-label="复制微信号 business_rick">复制</button></p></section>
 <footer><span>Rick · 独立开发者</span><a href="https://kobe969463-creator.github.io/">看网站、App 等其他作品 →</a></footer></main>
+<script>
+(function(){
+  function legacy(t){var a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');
+    a.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;font-size:16px';document.body.appendChild(a);
+    a.focus();a.select();a.setSelectionRange(0,t.length);var ok=false;try{ok=document.execCommand('copy')}catch(e){}a.remove();return ok}
+  function copy(t){if(navigator.clipboard&&window.isSecureContext){return navigator.clipboard.writeText(t).then(function(){return true},function(){return legacy(t)})}
+    return Promise.resolve(legacy(t))}
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-copy]');if(!b)return;e.preventDefault();
+    copy(b.getAttribute('data-copy')).then(function(ok){
+      if(!ok){var n=b.parentNode.querySelector('[translate]');if(n){var r=document.createRange();r.selectNodeContents(n);var s=getSelection();s.removeAllRanges();s.addRange(r)}}
+      b.textContent=ok?'已复制':'长按选中复制';b.classList.toggle('is-copied',ok);clearTimeout(b._t);
+      b._t=setTimeout(function(){b.textContent='复制';b.classList.remove('is-copied')},2000)})})
+})();
+</script>
 </body>
 </html>
