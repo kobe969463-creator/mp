@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <link rel="stylesheet" href="./assets/uni.1335bdb5.css">
+
+    <meta charset="UTF-8" />
+    <script>
+      // 大屏电脑上直接打开试玩版时，换成「手机框」页面（static/frame.html 用 iframe 套回本页）；手机上、被嵌在展示页里时照常显示
+      (function () {
+        var wide = window.innerWidth > 900 && window.innerHeight > 700 && !/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
+        var inFrame = window.top !== window.self || /[?&]f=1/.test(location.search)
+        if (wide && !inFrame) location.replace('static/frame.html' + location.hash)
+      })()
+      var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') ||
+        CSS.supports('top: constant(a)'))
+      document.write(
+        '<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +
+        (coverSupport ? ', viewport-fit=cover' : '') + '" />')
+    </script>
+    <title>拾柴烤肉 · 订座买套餐</title>
+    <style>
+      /* 比手机宽的屏幕（平板、横屏、电脑窗口）：整个小程序限在 480 宽、居中，两边留底色；
+         uni 自己的导航栏、tabBar 和页面里的固定栏都按 --window-left / --window-right 收进来 */
+      @media (min-width: 481px) {
+        :root { --window-left: calc(50% - 240px) !important; --window-right: calc(50% - 240px) !important; }
+        html { background: #dcdad5; }
+        body { max-width: 480px; margin: 0 auto !important; min-height: 100vh; box-shadow: 0 0 0 1px rgba(0, 0, 0, .06), 0 12px 40px rgba(0, 0, 0, .12); }
+      }
+    </style>
+    <!--preload-links-->
+    <!--app-context-->
+    <script type="module" crossorigin src="./assets/index-DhQAWe1j.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DM9krH0J.css">
+  </head>
+  <body>
+    <div id="app"><!--app-html--></div>
+  </body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rick 的小程序案例</title>
-<meta name="description" content="三个小程序案例：门店点餐 + 会员储值、商城 + 营销、预约 + 派单，每个都带商家后台，手机上能直接点着试。">
+<meta name="description" content="四个小程序案例：门店点餐 + 会员储值、商城 + 营销、预约 + 派单、订座买套餐 + 到店核销，每个都带商家后台，手机上能直接点着试。">
 <meta name="theme-color" content="#06082f">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
@@ -46,14 +46,14 @@ main{padding:12px var(--gut) 64px;max-width:1080px;margin:0 auto}
 .item span svg{width:16px;height:16px}
 footer{margin-top:40px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between}
 footer a{color:var(--ink);font-weight:500}
-@media (min-width:900px){:root{--gut:clamp(24px,6vw,96px)}h1{font-size:48px}.list{grid-template-columns:repeat(3,1fr);gap:32px}
+@media (min-width:900px){:root{--gut:clamp(24px,6vw,96px)}h1{font-size:48px}.list{grid-template-columns:repeat(4,1fr);gap:28px}
   .item{grid-template-columns:1fr;border:0}.item img{width:100%;height:auto;aspect-ratio:375/600}}
 </style>
 </head>
 <body>
 <header class="hero"><nav class="top"><a href="https://kobe969463-creator.github.io/">Rick<span>的作品</span></a></nav>
-<div><h1>小程序案例</h1><p>三个最常被问到的类型，每个都带商家后台。点进去先看录屏，再自己点一下，数据是假的随便点。</p></div></header>
-<main><div class="list"><a class="item" href="diancan/"><img src="diancan/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>陈记粉面</b><em>点餐 + 会员储值小程序</em><p>顾客扫桌上的码点单、充值当会员；老板在手机上接单、出餐、改菜单。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a><a class="item" href="shangcheng/"><img src="shangcheng/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>山野果仓</b><em>商城 + 营销小程序</em><p>商品、购物车、下单付款、发货物流都有，再加上领券、秒杀、抽奖、签到积分这些拉回头客的玩法。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a><a class="item" href="yuyue/"><img src="yuyue/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>蓝工到家</b><em>预约 + 派单小程序</em><p>顾客选服务、约时间；后台把单派给师傅，师傅在手机上接单、打卡、拍完工照。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a></div>
+<div><h1>小程序案例</h1><p>四个最常被问到的类型，每个都带商家后台。点进去先看录屏，再自己点一下，数据是假的随便点。</p></div></header>
+<main><div class="list"><a class="item" href="diancan/"><img src="diancan/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>陈记粉面</b><em>点餐 + 会员储值小程序</em><p>顾客扫桌上的码点单、充值当会员；老板在手机上接单、出餐、改菜单。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a><a class="item" href="shangcheng/"><img src="shangcheng/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>山野果仓</b><em>商城 + 营销小程序</em><p>商品、购物车、下单付款、发货物流都有，再加上领券、秒杀、抽奖、签到积分这些拉回头客的玩法。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a><a class="item" href="yuyue/"><img src="yuyue/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>蓝工到家</b><em>预约 + 派单小程序</em><p>顾客选服务、约时间；后台把单派给师傅，师傅在手机上接单、打卡、拍完工照。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a><a class="item" href="daodian/"><img src="daodian/poster.jpg" alt="" width="96" height="132" loading="lazy"><div><b>拾柴烤肉</b><em>订座 + 套餐核销 + 会员小程序</em><p>顾客线上买套餐、订好几点几位，付完拿到券码；到店店员扫一下就核销，余额和次卡都能直接付。</p><span>看录屏、自己试 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></a></div>
 <section class="contact" aria-labelledby="h-contact"><h2 id="h-contact">想做一个类似的</h2><p class="contact__lead">加微信，说说你的店和想要的功能，按你的生意来改。</p><p class="wx"><span data-copy-text>微信：<span translate="no">business_rick</span></span><button class="wx__btn" type="button" data-copy="business_rick" aria-label="复制微信号 business_rick">复制</button></p></section>
 <footer><span>Rick · 独立开发者</span><a href="https://kobe969463-creator.github.io/">看网站、App 等其他作品 →</a></footer></main>
 <script>
